@@ -1,0 +1,14 @@
+Our code contains 4 different class, an agent, an actor, a critic and a buffer. The agent uses the 3 other class to learn a policy. The actor is used to map the policy distribution and minimize the error of the policy function. The critic is used to map the value function and minimize its error. The buffer compute and store the cost to go and the TD-residuals after each episode as well as other relevant data.  
+In this assignment, our agent learnt a policy through 50 training episodes and was then tested over 100 of episodes. An episode is as followed:
+1.	Set up the buffer, the optimizer for the critic and the actor network as well as the environment 
+2.	For each step of each epoch, our agent choses the next step to follow given the current state. The state, the action, the return, and the value function is stored into the buffer as well as log likelihood of the state. The current step is updated to the next step chosen and this keeps going until an epoch ended (maximum number of states has been reached) or an episode ended (either the time is out or the trajectory is finished). If an episode has ended we store the return. 
+3.	We update our agent and compute a loss similar to the negative generalized advantage estimator. This loss is then used to minimize the error of the policy found by our actor. 
+generalized advantage estimator :
+ 
+For λ = 1, the above equation gives an unbiased estimate of g^γ , whereas λ < 1 gives a biased estimate. γ and λ, both contribute to the bias-variance trade-off. We experimentally define γ = 0.99 and λ = 0.98.
+The advantage function is defined as the exponentially-weighted average of the infinite sum of TD-residual of V with discount γ. 
+4.	We update our critic by computing 100 iteration of the value function. We calculated a loss using the eq 28 suggested by Schulman et al which is similar to computing the mean square error:
+  
+with Vt = the discounted sum of rewards and n indexes over all timesteps in a batch of trajectories. 
+
+
