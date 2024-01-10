@@ -1,0 +1,18 @@
+In this assignment, we needed to find the optimal number of layer of a NN (x) to find a network that makes accurate and fast predictions.
+
+  In order to do so, we used Bayesian Optimization.
+Having already some prior beliefs on the accuracy and the speed of the predictions, we created a Gaussian Process for each.
+
+  The initial guess for x is a random number between 0 and 5. The next guess are made in order to optimize the accuracy.
+herefore we pick 20 random x in the domain, computed their accuracy and only return the one with the highest accuracy.
+
+  To compute the acquisition function, we predicted the mean and the variance given x and choose to calculate the upper confidence bound.
+For our optimal NN, we also have a constraint on the speed of the prediction and therefore we multiple by a weight our acquisition function to penalize the element not respecting the minimum speed. 
+
+  In order to do so, we predicted the mean and variance of the speed given x.
+Then, if the variance was non-zero, we computed the probability that the constraint was not violated using a normal cumulative distribution function located at the predicted mean for the speed and with the variance predicted knowing x.
+
+
+  Otherwise, when the predicted variance was zero,the probability was given by the difference between the predicted mean speed in x and the limit speed value times a weight which was 0.98 when the predicted probability
+was higher than the limit speed and 0.02 otherwise.  
+
