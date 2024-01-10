@@ -1,0 +1,9 @@
+In this assignment, we managed to predict the concentration of fine articulate matter per cubic meter in specific location thanks to a Gaussian Process regression. 
+The problems to overcome where:
+1.	Model Selection: 
+For our model, we use a combination of kernels. 
+The RBF kernel has for aim to reproduce a smooth (thanks to the large length-scale = 50) trend. To capture irregularities, we used a rational quadratic kernel with a small length-scale (=1) compared to the RBF kernel and with alpha equal to 0.1. The parameter alpha quantifies the diffuseness of the length-scales as it is equivalent to a RBF kernel with several length-scale. Finally we added a noise kernel as it is said in the description that the data contains noise. The noise kernel is composed of an RBF kernel, which is supposed to reflect the correlated noise components such as changes in local weather, and a white kernel contribution for the white noise. 
+2.	Large Scale Learning:
+To overcome the expensive computations; we used under sampling of the data. To do so, we first created 14 clusters thanks to a Gaussian mixture model and then randomly chose 200 data points in each cluster. The number of clusters and the number of point in each cluster has been chosen experimentally in order to minimize the cost of our model. We then fitted our Gaussian Process Regressor on the 2800 resting data points.
+3.	Asymmetric cost function
+As the under fitted predictions are more penalized, we thought about shifting the prediction from the mean (ie. Prediction = mean + 0.02* standard deviation)
