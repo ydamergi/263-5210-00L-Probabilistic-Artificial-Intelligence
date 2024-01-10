@@ -1,0 +1,8 @@
+In this assignment, we decided to implement the Ensemble Learning methods. 
+We chose a network composed of 3 layers with an input features of 28x28, a 100 for the hidden layer and 10 for the output.
+We decided to create 50 networks which composed our ensemble and used a dropout proportion of 0.1 for the train as well as for the test.
+To obtain the weights of our networks, we uses the batch gradient descent with 20 epochs. To make our model more robust,
+we created a perturbed data set thanks to the Fast Gradient Sign Attack algorithm with epsilon = 0.08.
+The loss was then computed by the sum of the loss of the perturbed data passed through the log_softmax function and the loss of the original data passed through the same function.
+Finally, for our prediction, the estimations were the sum of the estimations of the different networks of our ensemble divided by the number of networks present in our ensemble.
+Each network estimation for the 10 digits was first pass through a softmax function to be sure that they sum up to one.
